@@ -1,64 +1,24 @@
-sudo apt-get install -y build-essential libpcap-dev libpcre3-dev libdumbnet-dev bison flex zlib1g-dev
 
-mkdir ~/snort_src
-cd ~/snort_src
+sudo apt-get update
+sudo apt-get upgrade
 
-wget https://www.snort.org/downloads/snort/daq-2.0.7.tar.gz
-tar xvzf daq-2.0.7.tar.gz                 
-cd daq-2.0.7
-./configure && make && sudo make install
+sudo apt-get install snort
+
+choose interface and IP
 
 
-wget https://www.snort.org/downloads/snort/snort-2.9.19.tar.gz
-tar xvzf snort-2.9.19.tar.gz                   
-cd snort-2.9.19
-./configure --enable-sourcefire && make && sudo make install
+RULES :
+
+sudo nano /etc/snort/rules/local.rules
+alert icmp any any -> $HOME_NET any (msg:"Tentative connexion ICMP"; sid:00001; rev:1;)
+snort -A console -i eth0 -u snort -c /etc/snort/snort.conf
 
 
-sudo ldconfig
-sudo ln -s /usr/local/bin/snort /usr/sbin/snort
-
-
-
-sudo groupadd snort
-sudo useradd snort -r -s /sbin/nologin -c SNORT_IDS -g snort
-sudo mkdir /etc/snort
-sudo mkdir /etc/snort/rules
-sudo mkdir /etc/snort/preproc_rules
-sudo touch /etc/snort/rules/white_list.rules /etc/snort/rules/black_list.rules /etc/snort/rules/local.rules
-sudo mkdir /var/log/snort
-sudo mkdir /usr/local/lib/snort_dynamicrules
-sudo chmod -R 5775 /etc/snort
-sudo chmod -R 5775 /var/log/snort
-sudo chmod -R 5775 /usr/local/lib/snort_dynamicrules
-sudo chown -R snort:snort /etc/snort
-sudo chown -R snort:snort /var/log/snort
-sudo chown -R snort:snort /usr/local/lib/snort_dynamicrules
-sudo cp ~/snort_src/snort-2.9.7.0/etc/*.conf* /etc/snort
-sudo cp ~/snort_src/snort-2.9.7.0/etc/*.map /etc/snort
-
-
-sudo vi /etc/snort/snort.conf
-ipvar HOME_NET 10.0.2.15/24 #Placez VOTRE adresse IP locale ici
-ipvar EXTERNAL_NET !$HOME_NET
-var RULE_PATH /etc/snort/rules
-var SO_RULE_PATH /etc/snort/so_rules
-var PREPROC_RULE_PATH /etc/snort/preproc_rules
-var WHITE_LIST_PATH /etc/snort/rules
-var BLACK_LIST_PATH /etc/snort/rules
+PATH TO LOGS :
+snort -r /var/log/snort/snort.log.XXXXXX
 
 
 
-
-sudo sed -i 's/include $RULE_PATH/#include $RULE_PATH/' /etc/snort/snort.conf
-include $RULE_PATH/local.rules    ==> relancer la commande dans le #
-
-
-
-sudo snort -T -c /etc/snort/snort.conf
-.........
-Snort successfully validated the configuration!
-Snort exiting
 
 
 

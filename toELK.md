@@ -3,7 +3,7 @@ curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add
 
 sudo nano /etc/filebeat/filebeat.yml
 
-============================== Filebeat inputs ===============================
+============== Filebeat inputs 
 
 filebeat.inputs:
 
@@ -21,12 +21,14 @@ paths:
 /var/log/snort/alert_fast.txt #- c:\programdata\elasticsearch\logs*
 
 ---------------------------- Elasticsearch Output ----------------------------
+
 #output.elasticsearch:
 
 Array of hosts to connect to.
 #hosts: [":9200"]
 
 ---------------------------- LOGSTASH Output ---------------------------- 
+
 output.logstash: hosts: [":5044"]
 
 sudo filebeat modules enable system

@@ -18,10 +18,6 @@ PATH TO LOGS :
 snort -r /var/log/snort/snort.log.XXXXXX
 
 
-
-
-
-
 SI No package 'luajit' found   :
 sudo apt-get -y update
 sudo apt -y install snort
@@ -33,9 +29,38 @@ alert icmp any any -> $HOME_NET any (msg:"ICMP test"; sid:10000001; rev:001;)
 sudo snort -A console -i eth0 -u snort -g snort -c /etc/snort/snort.conf
 
 
+tache de fond :
+
+sudo nano /lib/systemd/system/snort.service
+
+add :
+
+[Unit]
+Description=Lancer Snort NIDS
+After=syslog.target network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/snort -q -u snort -g snort -c /etc/snort/snort.conf -i eth0
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+reload (daemon) :
+
+sudo systemctl daemon-reload
+
+load :
+
+systemctl strat Snort
+Systemctl status Snort 
+
+
+
 
 !!!!!!!!!!!!!!!!If you are not sure which interface to use, check your 
 UpCloud control panel for the public IPv4 address of your server in the Network settings. 
 You can also use the following command on your server. !!!!!!!!!!!!!!!!!!!!!!
 
-ip addr

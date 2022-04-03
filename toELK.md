@@ -9,9 +9,6 @@ sudo nano /etc/filebeat/filebeat.yml
 
 filebeat.inputs:
 
-Each - is an input. Most options can be set at the input level, so
-you can use different inputs for various configurations.
-Below are the input specific configurations.
 type: log
 Change to true to enable this input configuration.
 enabled: true
@@ -38,7 +35,8 @@ hosts: ["IPsrvELK:9200"]
 Enable module system : 
 sudo filebeat modules enable system
 
-sudo filebeat setup --index-management -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=[":9200"]' sudo filebeat setup -E output.logstash.enabled=false -E output.elasticsearch.hosts=[':9200'] -E setup.kibana.host=:5601
+sudo filebeat setup --index-management -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=[":9200"]' 
+sudo filebeat setup -E output.logstash.enabled=false -E output.elasticsearch.hosts=[':9200'] -E setup.kibana.host=:5601
 
 sudo systemctl start filebeat
 
@@ -74,7 +72,11 @@ output {
 }
 
 
-SINON : 
+
+
+
+
+
 
 sudo filebeat setup --index-management -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["<elastic-server-ip>:9200"]'
 sudo filebeat setup -E output.logstash.enabled=false -E output.elasticsearch.hosts=['<elastic-server-ip>:9200'] -E setup.kibana.host=<elastic-server-ip>:5601

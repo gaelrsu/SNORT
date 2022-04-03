@@ -42,7 +42,7 @@ sudo systemctl start filebeat
 
 
 
-si passage par logstash:
+if you have as output logstash:
 
 on elk server : 
 input {

@@ -20,7 +20,7 @@ Paths that should be crawled and fetched. Glob based paths.
 paths:
 
 /var/log/*.log
-/var/log/snort/alert_fast.txt 
+/var/log/snort/alert* 
 
 ---------------------------- Elasticsearch Output ----------------------------
 
@@ -43,6 +43,8 @@ sudo filebeat setup --index-management -E output.logstash.enabled=false -E 'outp
 sudo systemctl start filebeat
 
 
+
+si passage par logstash:
 
 on elk server : 
 input {
@@ -70,3 +72,9 @@ output {
   }
   stdout { codec => rubydebug }
 }
+
+
+SINON : 
+
+sudo filebeat setup --index-management -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["<elastic-server-ip>:9200"]'
+sudo filebeat setup -E output.logstash.enabled=false -E output.elasticsearch.hosts=['<elastic-server-ip>:9200'] -E setup.kibana.host=<elastic-server-ip>:5601

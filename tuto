@@ -26,7 +26,8 @@ TEST :
 
 sudo nano /etc/snort/rules/local.rules
 alert icmp any any -> $HOME_NET any (msg:"ICMP test"; sid:10000001; rev:001;)
-sudo snort -A console -i eth0 -u snort -g snort -c /etc/snort/snort.conf
+sudo snort -A console -i eth0 -u snort -g snort -c /etc/snort/snort.conf   
+!!!!!!!!!!!!!!!pour recevoir les alertes dans un fichier et pouvoir les envopyer a filebeat remplacer 'console' par 'fast'
 
 
 tache de fond :
@@ -54,7 +55,7 @@ sudo systemctl daemon-reload
 
 load :
 
-systemctl strat Snort
+systemctl start Snort
 Systemctl status Snort 
 
 

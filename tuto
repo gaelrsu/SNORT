@@ -65,3 +65,8 @@ Systemctl status Snort
 UpCloud control panel for the public IPv4 address of your server in the Network settings. 
 You can also use the following command on your server. !!!!!!!!!!!!!!!!!!!!!!
 
+
+if you want to add an interface without ip (ex trunk): 
+   iface eth0.99 inet manual
+      post-up ifconfig $IFACE up
+      pre-down ifconfig $IFACE down

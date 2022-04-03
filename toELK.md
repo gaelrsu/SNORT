@@ -1,6 +1,8 @@
-SNORT
-curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add - echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list sudo apt update sudo apt install filebeat
-
+SNORT 
+curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
+apt update
+sudo apt install filebeat
 sudo nano /etc/filebeat/filebeat.yml
 
 ============== Filebeat inputs 
@@ -18,19 +20,22 @@ Paths that should be crawled and fetched. Glob based paths.
 paths:
 
 /var/log/*.log
-/var/log/snort/alert_fast.txt #- c:\programdata\elasticsearch\logs*
+/var/log/snort/alert_fast.txt 
 
 ---------------------------- Elasticsearch Output ----------------------------
 
-#output.elasticsearch:
+output.elasticsearch:
 
 Array of hosts to connect to.
-#hosts: [":9200"]
+hosts: ["IPsrvELK:9200"]
 
 ---------------------------- LOGSTASH Output ---------------------------- 
 
-output.logstash: hosts: [":5044"]
+#output.logstash: 
+#hosts: [":5044"]
 
+
+Enable module system : 
 sudo filebeat modules enable system
 
 sudo filebeat setup --index-management -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=[":9200"]' sudo filebeat setup -E output.logstash.enabled=false -E output.elasticsearch.hosts=[':9200'] -E setup.kibana.host=:5601

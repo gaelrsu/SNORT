@@ -1,0 +1,16 @@
+testing the snort configuration :
+  snort -c /etc/snort/snort.conf -T
+  
+differents modes :
+  -A fast : provides alert message, timestamps, sources, destination
+  -A cmg : provides base header details with payload in hex and text format
+  -A full : all informations about the alert 
+  -A console 
+  
+
+PCAP investigation :
+
+default:
+  snort -r filename.pcap
+read:
+  snort -c /etc/snort/snort.conf -A full -l . -r filename.pcap

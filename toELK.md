@@ -6,10 +6,11 @@ apt update
 sudo apt install filebeat
 sudo nano /etc/filebeat/filebeat.yml
 ```
+```bash
 ============== Filebeat inputs 
 
 filebeat.inputs:
-```bash
+
 type: log
 Change to true to enable this input configuration.
 enabled: true
@@ -19,16 +20,16 @@ paths:
 
 /var/log/*.log
 /var/log/snort/alert* 
-```
+
 ---------------------------- Elasticsearch Output ----------------------------
-```bash
+
 output.elasticsearch:
 
 Array of hosts to connect to.
 hosts: ["IPsrvELK:9200"]
-```bash
+
 ---------------------------- LOGSTASH Output ---------------------------- 
-```bash
+
 #output.logstash: 
 #hosts: [":5044"]
 

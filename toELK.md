@@ -32,9 +32,10 @@ hosts: ["IPsrvELK:9200"]
 
 #output.logstash: 
 #hosts: [":5044"]
-
+```
 
 Enable module system : 
+```
 sudo filebeat modules enable system
 
 sudo filebeat setup --index-management -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=[":9200"]' 

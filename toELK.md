@@ -1,14 +1,15 @@
-SNORT 
+# SNORT
+```bash
 curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
 echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
 apt update
 sudo apt install filebeat
 sudo nano /etc/filebeat/filebeat.yml
-
+```
 ============== Filebeat inputs 
 
 filebeat.inputs:
-
+```bash
 type: log
 Change to true to enable this input configuration.
 enabled: true
@@ -18,16 +19,16 @@ paths:
 
 /var/log/*.log
 /var/log/snort/alert* 
-
+```
 ---------------------------- Elasticsearch Output ----------------------------
-
+```bash
 output.elasticsearch:
 
 Array of hosts to connect to.
 hosts: ["IPsrvELK:9200"]
-
+```bash
 ---------------------------- LOGSTASH Output ---------------------------- 
-
+```bash
 #output.logstash: 
 #hosts: [":5044"]
 
@@ -39,12 +40,13 @@ sudo filebeat setup --index-management -E output.logstash.enabled=false -E 'outp
 sudo filebeat setup -E output.logstash.enabled=false -E output.elasticsearch.hosts=[':9200'] -E setup.kibana.host=:5601
 
 sudo systemctl start filebeat
+```
 
 
-
-if you have as output logstash:
+if you have an output logstash:
 
 on elk server : 
+```bash
 input {
   file {
     path => "<path_to_logs_file>"
@@ -71,7 +73,7 @@ output {
   stdout { codec => rubydebug }
 }
 
-
+```
 
 
 
